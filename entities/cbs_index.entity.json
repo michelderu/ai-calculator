@@ -1,0 +1,26 @@
+{
+  "info" : {
+    "title" : "cbs_index",
+    "version" : "0.0.1",
+    "baseUri" : "http://example.org/",
+    "description" : "House price index from CBS for The Netherlands"
+  },
+  "definitions" : {
+    "cbs_index" : {
+      "primaryKey" : "year",
+      "required" : [ ],
+      "pii" : [ ],
+      "elementRangeIndex" : [ ],
+      "rangeIndex" : [ ],
+      "wordLexicon" : [ ],
+      "properties" : {
+        "year" : {
+          "datatype" : "int"
+        },
+        "price_index" : {
+          "datatype" : "decimal"
+        }
+      }
+    }
+  }
+}

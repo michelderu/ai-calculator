@@ -1,0 +1,71 @@
+<export><workspace name="Workspace"><query name="Query text summarizer model" focus="false" listorder="1" taborder="2" active="true" database="17324495114527234977" server="7799873324022551324" database-name="Documents" server-name="App-Services" mode="xquery">xquery version "1.0-ml";
+
+xdmp:document-load(
+    "/var/opt/MarkLogic/sample_text_summarizer.model",
+    &lt;options xmlns="xdmp:document-load"&gt;
+          &lt;uri&gt;/Models/greedy_model.model&lt;/uri&gt;
+    &lt;/options&gt; ),
+
+xdmp:document-load(
+    "/var/opt/MarkLogic/sample_text_summarizer_vocab.txt",
+    &lt;options xmlns="xdmp:document-load"&gt;
+          &lt;uri&gt;/Models/vocab_comma.txt&lt;/uri&gt;
+    &lt;/options&gt; )
+</query><query name="Run linear regression" focus="true" listorder="3" taborder="1" active="true" database="12850838067518363472" server="13533775587165919647" database-name="data-hub-FINAL" server-name="data-hub-FINAL" mode="xquery">xquery version "1.0-ml";
+let $model := cntk:function(fn:doc("CBS_Linear_Regression.onnx")/binary(), cntk:cpu(), "onnx")
+let $input-variable := cntk:function-arguments($model)
+let $input-value := cntk:value(cntk:variable-shape($input-variable), json:to-array((2019)))
+let $output-variable := cntk:function-output($model)
+let $input-pair := json:to-array(($input-variable, $input-value))
+let $output-value := cntk:evaluate($model, $input-pair, ($output-variable))
+let $prediction := cntk:value-to-array($output-variable, $output-value)
+return $prediction</query><query name="Summarize sample text" focus="false" listorder="4" taborder="3" active="true" database="17324495114527234977" server="7799873324022551324" database-name="Documents" server-name="App-Services" mode="xquery">xquery version "1.0-ml";
+
+(: Input text to be summarized :)
+let $article :=
+"&lt;s&gt; a moderate earthquake jolted southern iran on wednesday, 
+killing six people, and damaging scores of homes 
+on a resort island in strategic gulf waters. &lt;/s&gt;"
+
+(: Load a pretrained model from the database, and add tweaks :)
+let $model := cntk:argmax(
+    cntk:function(fn:doc("/Models/greedy_model.model")/binary()),
+                  cntk:axis(0))
+
+(: Extract required variables from the model :)
+let $input-variable := cntk:function-arguments($model)
+let $output-variable := cntk:function-output($model)
+
+(: Vectorize the input text, preparing input values for the model :)
+let $vocab := fn:tokenize(
+    fn:doc("/Models/vocab_comma.txt")/text(),",")
+let $tokens := fn:tokenize($article, " ")
+let $sequences := 
+    for $token in $tokens return fn:index-of($vocab, $token)+1
+let $one-hot-sequences :=
+    for $idx in $sequences
+        return ((for $_ in (1 to $idx - 1) return 0), 1,
+                (for $_ in ($idx+1 to 122920) return 0))
+let $shape := cntk:variable-shape($input-variable)
+let $input-value := cntk:sequence(
+     $shape, 
+     json:to-array($one-hot-sequences), 
+     fn:true())
+let $input-pair := json:to-array(($input-variable, $input-value))
+
+(: Perform evaluation of the model on our input text :)
+let $output-value := cntk:evaluate(
+     $model, 
+     $input-pair, 
+     ($output-variable))
+let $output-sequence := json:array-values(
+     cntk:value-to-array($output-variable, 
+     $output-value), 
+     fn:true())
+
+(: Print out the output of the model, which is a summarization of our input text :)
+return fn:string-join(
+     for $output in $output-sequence return $vocab[$output], " ")</query><query name="Create an Optic plan" focus="false" listorder="4" taborder="4" active="true" database="12850838067518363472" server="13533775587165919647" database-name="data-hub-FINAL" server-name="data-hub-FINAL" mode="javascript">'use strict';
+const op = require('/MarkLogic/optic');
+op.fromSQL("select * from cbs_index").export();
+</query></workspace></export>

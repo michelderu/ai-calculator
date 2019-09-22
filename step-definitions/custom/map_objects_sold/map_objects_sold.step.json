@@ -1,0 +1,22 @@
+{
+  "language" : "zxx",
+  "name" : "map_objects_sold",
+  "description" : "Maps ingested objects to objects_sold entity",
+  "type" : "CUSTOM",
+  "version" : 1,
+  "options" : {
+    "additionalCollections" : [ ],
+    "sourceQuery" : "cts.collectionQuery([\"ingest_objects_sold\"])",
+    "targetEntity" : "objects_sold",
+    "collections" : [ "map_objects_sold", "objects_sold" ],
+    "sourceDatabase" : "data-hub-STAGING",
+    "sourceCollection" : "ingest_objects_sold",
+    "outputFormat" : "json",
+    "targetDatabase" : "data-hub-FINAL"
+  },
+  "customHook" : { },
+  "modulePath" : "/custom-modules/custom/map_objects_sold/main.sjs",
+  "retryLimit" : 0,
+  "batchSize" : 100,
+  "threadCount" : 4
+}

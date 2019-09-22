@@ -1,0 +1,22 @@
+{
+  "language" : "zxx",
+  "name" : "map_spotzi_data",
+  "description" : "",
+  "type" : "CUSTOM",
+  "version" : 1,
+  "options" : {
+    "additionalCollections" : [ ],
+    "sourceQuery" : "cts.collectionQuery([\"ingest_spotzi_data\"])",
+    "targetEntity" : "spotzi",
+    "collections" : [ "map_spotzi_data", "spotzi" ],
+    "sourceDatabase" : "data-hub-STAGING",
+    "sourceCollection" : "ingest_spotzi_data",
+    "outputFormat" : "json",
+    "targetDatabase" : "data-hub-FINAL"
+  },
+  "customHook" : { },
+  "modulePath" : "/custom-modules/custom/map_spotzi_data/main.sjs",
+  "retryLimit" : 0,
+  "batchSize" : 100,
+  "threadCount" : 4
+}

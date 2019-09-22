@@ -1,0 +1,7 @@
+*-timestamps.properties
+.ipynb_checkpoints
+.tmp
+__pycache__
+.gradle
+sample_text_summarizer_vocab.txt
+sample_text_summarizer.model

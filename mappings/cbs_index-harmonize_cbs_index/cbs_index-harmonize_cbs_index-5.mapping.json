@@ -1,0 +1,17 @@
+{
+  "language" : "zxx",
+  "name" : "cbs_index-harmonize_cbs_index",
+  "description" : "Default description",
+  "version" : 5,
+  "targetEntityType" : "http://example.org/cbs_index-0.0.1/cbs_index",
+  "sourceContext" : "/",
+  "sourceURI" : "/Users/mderu/projects/ai-calculator/data/cbs/a33c5a9d-51de-41ad-a05a-a9f38d015857.json",
+  "properties" : {
+    "year" : {
+      "sourcedFrom" : "Jaar"
+    },
+    "price_index" : {
+      "sourcedFrom" : "Verhoging"
+    }
+  }
+}

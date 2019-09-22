@@ -1,0 +1,23 @@
+{
+  "spotzi" : {
+    "x" : 61,
+    "y" : 95,
+    "width" : 350,
+    "height" : 151,
+    "vertices" : { }
+  },
+  "objects_sold" : {
+    "x" : 1065,
+    "y" : 266,
+    "width" : 342,
+    "height" : 287,
+    "vertices" : { }
+  },
+  "cbs_index" : {
+    "x" : 543,
+    "y" : 148,
+    "width" : 421,
+    "height" : 175,
+    "vertices" : { }
+  }
+}

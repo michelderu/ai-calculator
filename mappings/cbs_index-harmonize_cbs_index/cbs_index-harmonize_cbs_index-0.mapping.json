@@ -1,0 +1,10 @@
+{
+  "language" : "zxx",
+  "name" : "cbs_index-harmonize_cbs_index",
+  "description" : "",
+  "version" : 0,
+  "targetEntityType" : "http://example.org/cbs_index-0.0.1/cbs_index",
+  "sourceContext" : "/",
+  "sourceURI" : "",
+  "properties" : { }
+}

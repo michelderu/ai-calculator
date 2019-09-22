@@ -1,0 +1,17 @@
+{
+  "language" : "zxx",
+  "name" : "cbs_index-harmonize_cbs_index",
+  "description" : "Default description",
+  "version" : 4,
+  "targetEntityType" : "http://example.org/cbs_index-0.0.1/cbs_index",
+  "sourceContext" : "/",
+  "sourceURI" : "/Users/Shared/aiingest/data/cbs/16124a7c-5d1b-427e-92a5-a88e2aeae369.json",
+  "properties" : {
+    "year" : {
+      "sourcedFrom" : "Jaar"
+    },
+    "price_index" : {
+      "sourcedFrom" : "Verhoging"
+    }
+  }
+}
