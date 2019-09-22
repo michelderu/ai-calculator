@@ -60,25 +60,25 @@ docker exec -it cntk-jupyter-notebooks bash -c "source /cntk/activate-cntk && ju
 ```
 ### Use the Jupyter notebook for training purposes
 
-Open the Jupyter notebook at http://0.0.0.0:8888/, or better yet follow the link (with the `?token=` parameter) in the output of the above `docker exec` command. Open the 'CBS_Linear_Regression_Model.ipynb' notebook and run in sequence.
+Open the Jupyter notebook at http://0.0.0.0:8888/, or better yet follow the link (with the `?token=` parameter) in the output of the above `docker exec` command. Open the `CBS_Linear_Regression_Model.ipynb` notebook and run all steps in sequence.
 
-This step retrieves the data from the Data Hub using SQL and uses it to train the model. Then the model is loaded up into the Data Hub to be operationalized.
+This step retrieves the data from the Data Hub using SQL (enabling Data Scientists without knowledge of MarkLogic) and uses it to train the model. Then the model is loaded up into the Data Hub to be operationalized.
 
 ## Run the model in MarkLogic using Query Console
 
-Open Query Console at http://0.0.0.0:8000/ and load the Workspace called Workspace.xml. Now run the tab 'Run linear regression'.
+Open Query Console at http://0.0.0.0:8000/ and load the Workspace called `Workspace.xml`. Now run the tab `Run linear regression`.
 
 ### Because the model doesn't work (anti-climax) show another model
 Download the model and vocabulary from https://developer.marklogic.com/products/marklogic-server/10.0, see caption "Machine Learning Models".
 
-Run the tabs 'Query test summarizer model' to load the model and vocabulary. Then run the tab 'Summarize sample text' to show how the trained ONNX model is able to summarize a random text.
+Run the tabs `Query test summarizer model` to load the model and vocabulary. Then run the tab `Summarize sample text` to show how the trained ONNX model is able to summarize a random text.
 
 ## Conclusion
 This demo shows:
 1. The ability to load trusted valuable data easily in a Data Scientist environment to create models
 2. Teh ability to operationalize those models in the MarkLogic Data Hub using the Industry Defacto Standard ONNX as Interchangeable Format.
 
-### Appendix: Retrieve from Data Hub
+## Appendix: Some background information
 
 ### Convert SQL to Optic plan
 
