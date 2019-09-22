@@ -38,6 +38,10 @@ docker run -d -p 8888:8888 \
      --link aidata -v `pwd`:/mount \
      -t microsoft/cntk:2.3-cpu-python3.5
 ```
+#### Alternative using Anaconda Enterprise Data Science Platform
+
+Alternatively, you could use a Anaconda (https://www.anaconda.com/) distribution to run Jupyter Notebook from.
+In that case, skip this one step.
 
 ## Starting the data hub framework
 
@@ -58,9 +62,14 @@ Now we have trusted, curated, harmonized data for further use.
 ```sh
 docker exec -it cntk-jupyter-notebooks bash -c "source /cntk/activate-cntk && jupyter-notebook --no-browser --port=8888 --ip=0.0.0.0 --notebook-dir=/mount --allow-root"
 ```
+#### Alternative using Anaconda Enterprise Data Science Platform
+
+Alternatively, you could use a Anaconda (https://www.anaconda.com/) distribution to run Jupyter Notebook from.
+In that case, just run Jupyter Notebook in a shell using `jupyter notebook`.
+
 ### Use the Jupyter notebook for training purposes
 
-Open the Jupyter notebook at http://0.0.0.0:8888/, or better yet follow the link (with the `?token=` parameter) in the output of the above `docker exec` command. Open the `CBS_Linear_Regression_Model.ipynb` notebook and run all steps in sequence.
+Open the Jupyter notebook at http://0.0.0.0:8888/, or better yet follow the link (with the `?token=` parameter) in the output of the above `docker exec` command. Open the `Train_CBS_Linear_Regression_Model.ipynb` notebook and run all steps in sequence.
 
 This step retrieves the data from the Data Hub using SQL (enabling Data Scientists without knowledge of MarkLogic) and uses it to train the model. Then the model is loaded up into the Data Hub to be operationalized.
 
@@ -115,3 +124,11 @@ POST Body:
 ```
 
 The above JSON is already saved URL-encoded within the Jupyter Notebook, `CBS_Linear_Regression_Model.ipynb`. It can be tested in Postman or with `curl`.
+
+### Training a model that works on CNTK using Keras
+
+As the previous model (CBS Linear Regression) didn't run in MarkLogic due to the lack of support of the LinearRegressor model in the embedded CNTK library/ONNX runtime, here's an example that tries to create a model using the low-level Keras modules.
+
+Start `jupyter notebook` (within the Microsoft CNTK Docker Image) and run all steps in sequence in `Train_Gender_Classifier_Model.ipynb`.
+
+This example was taken from the MarkLogic Blog Post by Anthony Roach: https://www.marklogic.com/blog/now-available-marklogic-embedded-machine-learning/.

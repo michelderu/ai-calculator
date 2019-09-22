@@ -5,3 +5,4 @@ __pycache__
 .gradle
 sample_text_summarizer_vocab.txt
 sample_text_summarizer.model
+.DS_Store
